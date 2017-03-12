@@ -1,10 +1,13 @@
+
 version: '2'
 
 services:
   bobble:
-    image: kevingbb/bobble
+    image: kevingbb/bobble:latest
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
     ports:
-      - "3000:3000"
+      - 3000:3000

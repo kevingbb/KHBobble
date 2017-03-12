@@ -1,8 +1,11 @@
-FROM node
-RUN npm install nodemon -g
+FROM node:latest
+LABEL Name=khbobble Version=0.0.0 
+COPY package.json /tmp/package.json
+RUN cd /tmp && npm install nodemon -g
+RUN mkdir -p /src && mv /tmp/node_modules /src
 WORKDIR /src
+COPY . /src
 EXPOSE 3000
 EXPOSE 5858
 ENTRYPOINT ["/bin/bash", "-c", "if [ -z \"$REMOTE_DEBUGGING\" ]; then nodemon -L --debug; else nodemon -L --debug-brk; fi"]
-COPY . /src
-RUN npm install
+CMD npm start

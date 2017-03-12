@@ -1,15 +1,17 @@
+
 version: '2'
 
 services:
   bobble:
-    image:kevingbb/bobble:debug
+    image: kevingbb/bobble:debug
     build:
       context: .
       dockerfile: Dockerfile.debug
+    environment:
+      NODE_ENV: development
     ports:
-      - "3000:3000"
-      - "5858:5858"
+      - 3000:3000
+      - 5858:5858
     volumes:
       - .:/src
-    environment:
-      - REMOTE_DEBUGGING
+    command: node --debug=5858 ./bin/www

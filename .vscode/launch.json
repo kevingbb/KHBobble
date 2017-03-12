@@ -31,7 +31,8 @@
             "sourceMaps": false,
             "outDir": null,
             "localRoot": "${workspaceRoot}",
-            "remoteRoot": null
+            "remoteRoot": null,
+            "protocol": "inspector"
         },
         {
             "name": "Attach to Process",
@@ -40,7 +41,8 @@
             "processId": "${command.PickProcess}",
             "port": 5858,
             "sourceMaps": false,
-            "outDir": null
+            "outDir": null,
+            "protocol": "auto"
         },
         {
             "name": "Docker Launch",
@@ -53,7 +55,8 @@
             "outDir": null,
             "localRoot": "${workspaceRoot}",
             "remoteRoot": "/src",
-            "timeout": 10000
+            "timeout": 10000,
+            "protocol": "inspector"
         }
     ]
 }
