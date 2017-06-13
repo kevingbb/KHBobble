@@ -15,3 +15,5 @@ docker run -it -p 3000:3000 khbobble
 ```
 
 3. Profit
+
+The docker container is now running in ```-it``` mode (aka interactive terminal) and is accessible locally on your browser at port 3000 which points to the container port 3000 (```-p 3000:3000```).
