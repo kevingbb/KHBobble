@@ -19,7 +19,7 @@ router.post('/', function (req, res, next) {
     Promise.resolve(imgSrc)
         .then(function detectFace(image) {
             //var client = new oxford.Client(process.env.OXFORD_API);
-            var client = new oxford.Client("2bcc55b99cf44e7baa8a9a5b05988c71");
+            var client = new oxford.Client("dd808c78aeb148ea8012967a52684aac");
             return client.face.detect({path: image});
         })
         .then(function generateBobblePermutations (response) {
