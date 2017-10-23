@@ -1,4 +1,4 @@
-# .gitignore
- 
+.vs
+
 node_modules
 public/images

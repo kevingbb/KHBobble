@@ -20,17 +20,25 @@ router.post('/', function (req, res, next) {
         .then(function detectFace(image) {
             //var client = new oxford.Client(process.env.OXFORD_API);
             var client = new oxford.Client("dd808c78aeb148ea8012967a52684aac");
-            return client.face.detect({path: image});
+              // return Promise.all(client.face.detect({path: image}));
+            return client.face.detect({path: image});            
         })
+        .then(function(faceArray){
+          if(faceArray.length > 0){
+            return Promise.resolve(faceArray);
+          }
+          else{
+            return Promise.reject("No Faces Detected: Try Again!");
+          }
+        })
         .then(function generateBobblePermutations (response) {
             var promises = [];
             var degrees = [10, 0, -10];
 
-              for (var i = 0; i < degrees.length; i++) {
-                var outputName = req.file.path + '-' + i + '.png';
-                promises.push(cropHeadAndPasteRotated(req.file.path,
-                  response[0].faceRectangle, degrees[i], outputName))
-              }
+            for (var i = 0; i < degrees.length; i++) {
+              var outputName = req.file.path + '-' + i + '.png';
+              promises.push(cropHeadAndPasteRotated(req.file.path, response[0].faceRectangle, degrees[i], outputName))
+            }
             return Promise.all(promises);
         })
         .then(function generateGif (dimensions) {
@@ -46,7 +54,11 @@ router.post('/', function (req, res, next) {
         })
         .then(function displayGif(gifLocation) {
             res.render('index', { title: 'Done!', image: gifLocation })
-        });
+        })
+        .catch(error => {
+          console.log('Caught: ', error);
+          res.render('index', { title: error, image: null });
+        });
 });
 
 function cropHeadAndPasteRotated(inputFile, faceRectangle, degrees, outputName) {
