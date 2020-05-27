@@ -14,8 +14,8 @@ jobs:
     - name: Build and push image to ACR
       id: build-image
       run: |
-        docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t khaksacr.azurecr.io/khaks20200527:${{ github.sha }}
-        docker push khaksacr.azurecr.io/khaks20200527:${{ github.sha }}
+        docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t khaksacr.azurecr.io/khbobble:${{ github.sha }}
+        docker push khaksacr.azurecr.io/khbobble:${{ github.sha }}
     
     - uses: azure/k8s-set-context@v1
       with:
@@ -24,27 +24,27 @@ jobs:
     
     - name: Create namespace
       run: |
-        namespacePresent=`kubectl get namespace | grep khaks202005272ab3 | wc -l`
+        namespacePresent=`kubectl get namespace | grep default | wc -l`
         if [ $namespacePresent -eq 0 ]
         then
-            echo `kubectl create namespace khaks202005272ab3`
+            echo `kubectl create namespace default`
         fi
 
     - uses: azure/k8s-create-secret@v1
       with:
-        namespace: khaks202005272ab3
+        namespace: default
         container-registry-url: khaksacr.azurecr.io
         container-registry-username: ${{ secrets.acr_khaksacr_username }}
         container-registry-password: ${{ secrets.acr_khaksacr_password }}
-        secret-name: khaks2020052dockerauth
+        secret-name: khbobbledockerauth
        
     - uses: azure/k8s-deploy@v1
       with:
-        namespace: khaks202005272ab3
+        namespace: default
         manifests: |
           manifests/deployment.yml
           manifests/service.yml
         images: |
-          khaksacr.azurecr.io/khaks20200527:${{ github.sha }}
+          khaksacr.azurecr.io/khbobble:${{ github.sha }}
         imagepullsecrets: |
-          khaks2020052dockerauth
+          khbobbledockerauth
