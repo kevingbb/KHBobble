@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: "khaks20200527"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: "khaks20200527"
+    spec:
+      containers:
+        - name: "khaks20200527"
+          image: "khaksacr.azurecr.io/khaks20200527"
+          ports:
+          - containerPort: 3000
