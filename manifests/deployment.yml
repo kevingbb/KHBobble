@@ -17,3 +17,4 @@ spec:
           image: "khaksacr.azurecr.io/khbobble"
           ports:
           - containerPort: 3000
+            name: http
