@@ -1,16 +1,19 @@
-apiVersion : apps/v1beta1
+apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: "khaks20200527"
+  name: "khbobble"
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      app: "khbobble"
   template:
     metadata:
       labels:
-        app: "khaks20200527"
+        app: "khbobble"
     spec:
       containers:
-        - name: "khaks20200527"
-          image: "khaksacr.azurecr.io/khaks20200527"
+        - name: "khbobble"
+          image: "khaksacr.azurecr.io/khbobble"
           ports:
           - containerPort: 3000
