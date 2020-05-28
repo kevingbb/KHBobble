@@ -10,7 +10,7 @@ nameOverride: "javascript"
 fullnameOverride: "javascript"
 service:
   name: javascript
-  type: LoadBalancer
+  type: ClusterIP
   externalPort: 3000
   internalPort: 3000
 resources:
