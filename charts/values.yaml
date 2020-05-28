@@ -11,7 +11,7 @@ fullnameOverride: "javascript"
 service:
   name: javascript
   type: ClusterIP
-  externalPort: 3000
+  externalPort: 80
   internalPort: 3000
 resources:
   limits:
